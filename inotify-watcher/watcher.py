@@ -1,5 +1,5 @@
 """
-NAS inotify watcher — monitors directory groups and POSTs to a VM receiver
+NAS inotify watcher — monitors directory groups and POSTs to a VM trigger
 when filesystem events occur. Events are debounced per group so a burst of
 uploads triggers exactly one webhook call.
 """

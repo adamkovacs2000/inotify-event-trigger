@@ -1,5 +1,5 @@
 """
-VM event receiver — listens for webhook POSTs from the NAS watcher and
+VM event trigger — listens for webhook POSTs from the NAS watcher and
 dispatches them to the appropriate service APIs (Immich, Plex, …).
 """
 
@@ -16,7 +16,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
 )
-log = logging.getLogger("receiver")
+log = logging.getLogger("trigger")
 
 app = Flask(__name__)
 _config: dict = {}
@@ -177,7 +177,7 @@ def main() -> None:
     _config = load_config(config_path)
 
     port = int(os.environ.get("PORT", 8080))
-    log.info("Starting receiver on :%d", port)
+    log.info("Starting trigger on :%d", port)
     app.run(host="0.0.0.0", port=port)
 
 
