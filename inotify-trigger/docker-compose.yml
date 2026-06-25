@@ -1,6 +1,6 @@
 services:
   inotify-trigger:
-    build: ./inotify-trigger
+    build: .
     container_name: inotify-trigger
     restart: unless-stopped
     ports:
@@ -9,7 +9,7 @@ services:
       - "64123:64123"
     volumes:
       # Config file — copy config.yaml.example → config.yaml and edit it first
-      - ./inotify-trigger/config.yaml:/config/config.yaml:ro
+      - ./config.yaml:/config/config.yaml:ro
     environment:
       PORT: "64123"  # must match the port in the webhook_url of inotify-watcher
     logging:

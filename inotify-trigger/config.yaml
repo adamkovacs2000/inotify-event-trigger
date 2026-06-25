@@ -15,13 +15,12 @@ handlers:
       refresh_modified: true   # only re-process files whose mtime changed
       refresh_all_files: false # set true for a full forced rescan
 
-  # ── Movies → Plex ───────────────────────────────────────────────────────────
-  # movies:
-  #   - type: plex_refresh
-  #     url: "http://192.168.50.200:32400"
-  #     token: "your-plex-token"
-  #     section_id: "1"   # Movies section — find it in Plex → Settings → Libraries
-  #     force: false       # true = deep scan (slower, refreshes all metadata)
+  movies:
+    - type: plex_refresh
+      url: "http://192.168.50.200:32400"
+      token: "R4vyvUCV3zw7jAbgRBy1"
+      section_id: "1"   # Movies section — find it in Plex → Settings → Libraries
+      force: false       # true = deep scan (slower, refreshes all metadata)
 
 
   # ── Example: one group triggers multiple services ────────────────────────────

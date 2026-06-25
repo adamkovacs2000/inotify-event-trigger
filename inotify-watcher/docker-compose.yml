@@ -1,6 +1,6 @@
 services:
   inotify-watcher:
-    build: ./inotify-watcher
+    build: .
     container_name: inotify-watcher
     restart: unless-stopped
     volumes:
@@ -14,7 +14,7 @@ services:
       - /volume1/server_data/immich:/volume1/server_data/immich:ro
       - /volume1/Movies:/volume1/Movies:ro
       # Config file — copy config.yaml.example → config.yaml and edit it first
-      - ./inotify-watcher/config.yaml:/config/config.yaml:ro
+      - ./config.yaml:/config/config.yaml:ro
     # Optional: increase inotify watch limit if you have very large trees.
     # The default (8192) is often enough, but deep photo libraries may need more.
     # sysctls:
