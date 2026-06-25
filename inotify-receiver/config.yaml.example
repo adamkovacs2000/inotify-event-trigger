@@ -1,0 +1,43 @@
+# Shared secret — must match the inotify-watcher config.
+# Set to an empty string "" to disable auth (not recommended).
+shared_secret: "change-me-to-a-long-random-string"
+
+# Each key maps a group name (from the NAS watcher) to a list of handlers.
+# All handlers in a group are executed in order when the group is triggered.
+handlers:
+
+  # ── Pictures → Immich ───────────────────────────────────────────────────────
+  pictures:
+    - type: immich_scan
+      url: "http://immich:2283"
+      api_key: "your-immich-api-key"
+      # Omit library_id to scan ALL external libraries, or specify one:
+      # library_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      refresh_modified: true   # only re-process files whose mtime changed
+      refresh_all_files: false # set true for a full forced rescan
+
+  # ── Movies → Plex ───────────────────────────────────────────────────────────
+  movies:
+    - type: plex_refresh
+      url: "http://plex:32400"
+      token: "your-plex-token"
+      section_id: "1"   # Movies section — find it in Plex → Settings → Libraries
+      force: false       # true = deep scan (slower, refreshes all metadata)
+
+  # ── TV Shows → Plex ─────────────────────────────────────────────────────────
+  tvshows:
+    - type: plex_refresh
+      url: "http://plex:32400"
+      token: "your-plex-token"
+      section_id: "2"   # TV Shows section
+      force: false
+
+  # ── Example: one group triggers multiple services ────────────────────────────
+  # media:
+  #   - type: immich_scan
+  #     url: "http://immich:2283"
+  #     api_key: "..."
+  #   - type: plex_refresh
+  #     url: "http://plex:32400"
+  #     token: "..."
+  #     section_id: "3"

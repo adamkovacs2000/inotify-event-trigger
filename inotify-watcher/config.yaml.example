@@ -1,0 +1,32 @@
+# Shared secret — must match the vm-receiver config.
+# Set to an empty string "" to disable auth (not recommended).
+shared_secret: "change-me-to-a-long-random-string"
+
+groups:
+  # ── Pictures ────────────────────────────────────────────────────────────────
+  - name: pictures
+    # Use the real NAS paths — they're available inside the container because
+    # docker-compose mounts /volume1 → /volume1 (no path translation needed).
+    paths:
+      - /volume1/photos
+      - /volume1/camera-uploads
+      - /volume1/shared-albums
+    # Wait this many seconds after the LAST event before firing the webhook.
+    # Prevents a 1000-file import from triggering 1000 API calls.
+    debounce_seconds: 30
+    # URL of the vm-receiver endpoint for this group.
+    webhook_url: "http://192.168.1.100:8080/trigger/pictures"
+
+  # ── Movies ──────────────────────────────────────────────────────────────────
+  - name: movies
+    paths:
+      - /volume1/movies
+    debounce_seconds: 60
+    webhook_url: "http://192.168.1.100:8080/trigger/movies"
+
+  # ── TV Shows ────────────────────────────────────────────────────────────────
+  - name: tvshows
+    paths:
+      - /volume1/tvshows
+    debounce_seconds: 60
+    webhook_url: "http://192.168.1.100:8080/trigger/tvshows"

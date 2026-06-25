@@ -1,0 +1,19 @@
+services:
+  vm-receiver:
+    build: ./vm-receiver
+    container_name: vm-receiver
+    restart: unless-stopped
+    ports:
+      # Expose on the VM's LAN IP. Restrict with a firewall rule so only the
+      # NAS can reach this port.
+      - "64123:64123"
+    volumes:
+      # Config file — copy config.yaml.example → config.yaml and edit it first
+      - ./vm-receiver/config.yaml:/config/config.yaml:ro
+    environment:
+      PORT: "64123"  # must match the port in the webhook_url of inotify-watcher
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

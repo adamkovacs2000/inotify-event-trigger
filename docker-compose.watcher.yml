@@ -1,0 +1,27 @@
+services:
+  inotify-watcher:
+    build: ./inotify-watcher
+    container_name: inotify-watcher
+    restart: unless-stopped
+    volumes:
+      # Format: host_path:container_path:mode
+      # Using the same path on both sides so config.yaml can reference NAS paths directly.
+      - /volume1/photo:/volume1/photo:ro
+      - /volume1/Videos/video:/volume1/Videos/video:ro
+      - /volume1/homes/kovacs.barbi.2005/Photos:/volume1/homes/kovacs.barbi.2005/Photos:ro
+      - /volume1/homes/oriagi21/Photos:/volume1/homes/oriagi21/Photos:ro
+      - "/volume1/SYNC/adam.kovacs.2000/OneDrive - Personal/Pictures/Samsung Galéria:/volume1/SYNC/adam.kovacs.2000/OneDrive - Personal/Pictures/Samsung Galéria:ro"
+      - /volume1/server_data/immich:/volume1/server_data/immich:ro
+      - /volume1/Movies:/volume1/Movies:ro
+      # Config file — copy config.yaml.example → config.yaml and edit it first
+      - ./inotify-watcher/config.yaml:/config/config.yaml:ro
+    # Optional: increase inotify watch limit if you have very large trees.
+    # The default (8192) is often enough, but deep photo libraries may need more.
+    # sysctls:
+    #   fs.inotify.max_user_watches: 524288
+    network_mode: host
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
