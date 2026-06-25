@@ -1,4 +1,4 @@
-# Shared secret — must match the vm-receiver config.
+# Shared secret — must match the inotify-receiver config.
 # Set to an empty string "" to disable auth (not recommended).
 shared_secret: "change-me-to-a-long-random-string"
 
@@ -14,7 +14,7 @@ groups:
     # Wait this many seconds after the LAST event before firing the webhook.
     # Prevents a 1000-file import from triggering 1000 API calls.
     debounce_seconds: 30
-    # URL of the vm-receiver endpoint for this group.
+    # URL of the inotify-receiver endpoint for this group.
     webhook_url: "http://192.168.1.100:8080/trigger/pictures"
 
   # ── Movies ──────────────────────────────────────────────────────────────────
